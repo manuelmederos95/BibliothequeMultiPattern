@@ -11,7 +11,8 @@ namespace BibliothequeMultiPattern
         static void Main(string[] args)
         {
             Console.WriteLine("--------------Bibliotheque ESGI---------------");
-        
+                    Console.WriteLine("--------------Bibliotheque ESGI2---------------");
+
             Console.ReadLine();
         }
     }
