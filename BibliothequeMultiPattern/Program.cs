@@ -10,6 +10,8 @@ namespace BibliothequeMultiPattern
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("--------------Bibliotheque ESGI---------------");
+        
             Console.ReadLine();
         }
     }
