@@ -10,12 +10,12 @@ namespace BibliothequeMultiPattern
     public abstract class Book
     {
         public int Id { get; set; }
-        private String Titre { get; set; }
+        public String Title { get; set; }
 
         protected Book(int id, String titre)
         {
             this.Id = id;
-            this.Titre = titre;
+            this.Title = titre;
         }
 
         public abstract float getRefoundPrice();

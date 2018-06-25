@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bibliothecaire.cs" />
-    <Compile Include="Bibliotheque.cs" />
+    <Compile Include="Library.cs" />
     <Compile Include="book\BookBasic.cs" />
     <Compile Include="book\BookWithDvd.cs" />
     <Compile Include="Etudiant.cs" />
