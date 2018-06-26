@@ -66,8 +66,7 @@ namespace BibliothequeMultiPattern.book.data
         {
             if (null != book.Title.Trim() 
                 && !"".Equals(book.Title.Trim())
-                && null != (book.State)
-                && null != book.Id)
+                && null != (book.State))
             {
                 return true;
             }

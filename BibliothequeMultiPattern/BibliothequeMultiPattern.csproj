@@ -63,6 +63,8 @@
     <Compile Include="services\books\BookWithDvd.cs" />
     <Compile Include="services\books\Book.cs" />
     <Compile Include="controller\LibraryController.cs" />
+    <Compile Include="services\users\service\IUserService.cs" />
+    <Compile Include="services\users\service\UserService.cs" />
     <Compile Include="vues\LibraryGraphicConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

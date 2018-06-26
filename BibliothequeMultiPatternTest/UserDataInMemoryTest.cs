@@ -56,6 +56,7 @@ namespace BibliothequeMultiPatternTest
         [TestMethod]
         public void Should_not_connect_with_empty_data()
         {
+            ((UserDataInMemory)userDataInMemory).Clear();
             Assert.IsNull(userDataInMemory.Connect("login3", "azerty"));
         }
 
