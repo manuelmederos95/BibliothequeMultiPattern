@@ -8,6 +8,7 @@ public class UserDataInMemory:IUserData
     public UserDataInMemory()
 	{
         Users = new Dictionary<string, IUser>();
+        Users.Add("root", new Librarian("NAME", "FIRSTNAME", "root", "azerty"));
 	}
 
     public bool Add(IUser user)

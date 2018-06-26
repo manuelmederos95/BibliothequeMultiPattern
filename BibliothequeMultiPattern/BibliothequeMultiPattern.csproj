@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="events\handlers\ILibrarianEvent.cs" />
+    <Compile Include="events\handlers\LibrarianEventHandler.cs" />
     <Compile Include="services\books\data\BookDataInMemory.cs" />
     <Compile Include="services\books\data\IBookData.cs" />
     <Compile Include="services\books\model\BookBasic.cs" />
@@ -70,11 +72,11 @@
     <Compile Include="vues\LibraryGraphicConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="services\states\impl\Borrowed.cs" />
-    <Compile Include="services\states\impl\Exposed.cs" />
-    <Compile Include="services\states\impl\Returned.cs" />
-    <Compile Include="services\states\impl\Stocked.cs" />
-    <Compile Include="services\states\IState.cs" />
+    <Compile Include="services\books\states\impl\Borrowed.cs" />
+    <Compile Include="services\books\states\impl\Exposed.cs" />
+    <Compile Include="services\books\states\impl\Returned.cs" />
+    <Compile Include="services\books\states\impl\Stocked.cs" />
+    <Compile Include="services\books\states\IState.cs" />
     <Compile Include="services\users\data\IUserData.cs" />
     <Compile Include="services\users\data\UserDataInMemory.cs" />
     <Compile Include="services\users\model\IUser.cs" />
