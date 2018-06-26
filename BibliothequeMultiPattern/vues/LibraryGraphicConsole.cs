@@ -10,21 +10,28 @@ namespace BibliothequeMultiPattern
     {
         public LibraryGraphicConsole()
         {
-            Console.WriteLine("------------Bienvenue------------");
+            
         }
 
         public void start()
         {
-
+            Console.WriteLine("------------Bienvenue------------");
+            String login = this.consoleLogin();
+            String mdp = this.consolePassword();
+            
         }
         public String consoleLogin()
         {
-            return "Login: ";
+            Console.Write("Login: ");
+            String login = Console.ReadLine();
+            return login;
         }
 
         public String consolePassword()
         {
-            return "Mot de passe: ";
+            Console.Write("Mot de passe: ");
+            String mdp = Console.ReadLine();
+            return mdp;
         }
     }
 }

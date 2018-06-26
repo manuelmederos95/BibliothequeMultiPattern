@@ -11,6 +11,7 @@ namespace BibliothequeMultiPattern
         static void Main(string[] args)
         {
             LibraryGraphicConsole console = new LibraryGraphicConsole();
+            console.start();
         }
     }
 }
