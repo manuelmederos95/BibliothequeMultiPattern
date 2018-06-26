@@ -35,6 +35,7 @@ namespace BibliothequeMultiPatternTest
         [TestMethod]
         public void Should_not_add_incomplet_basic_book()
         {
+            ((BookDataInMemory) bookDataInMemory).Clear();
             Book bookBasic2 = new BookBasic(2, "");
             bookDataInMemory.Add(bookBasic2);
             Assert.AreEqual(0, bookDataInMemory.Search("").Count());
