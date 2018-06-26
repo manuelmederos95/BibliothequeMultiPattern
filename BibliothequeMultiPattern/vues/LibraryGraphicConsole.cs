@@ -8,12 +8,21 @@ namespace BibliothequeMultiPattern
 {
     class LibraryGraphicConsole
     {
-        public static String consoleLogin()
+        public LibraryGraphicConsole()
+        {
+            Console.WriteLine("------------Bienvenue------------");
+        }
+
+        public void start()
+        {
+
+        }
+        public String consoleLogin()
         {
             return "Login: ";
         }
 
-        public static String consolePassword()
+        public String consolePassword()
         {
             return "Mot de passe: ";
         }

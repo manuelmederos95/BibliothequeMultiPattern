@@ -10,9 +10,13 @@ namespace BibliothequeMultiPattern
 {
     public class LibraryController
     {
+        IUserService userService;
+        public LibraryController()
+        {
+            /** Gestion des Utilisateurs **/
+            userService = new UserService();
 
-        /** Gestion des Utilisateurs **/
-        IUserService userService = new UserService();
+        }
 
         public bool Add(IUser user) {
             return userService.Add(user);
