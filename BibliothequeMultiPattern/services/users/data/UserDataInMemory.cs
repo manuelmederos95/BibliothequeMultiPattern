@@ -4,9 +4,8 @@ using System.Collections.Generic;
 public class UserDataInMemory:IUserData
 {
     Dictionary<string, IUser> Users;
-    private static UserDataInMemory userDataInMemory;
 
-    private UserDataInMemory()
+    public UserDataInMemory()
 	{
         Users = new Dictionary<string, IUser>();
 	}
@@ -42,15 +41,6 @@ public class UserDataInMemory:IUserData
             return Users.Remove(login);
         }
         return false;
-    }
-
-    public static UserDataInMemory getInstance()
-    {
-        if(null == userDataInMemory)
-        {
-            userDataInMemory = new UserDataInMemory();
-        }
-        return userDataInMemory;
     }
 
     private bool CheckIsComplete(IUser user)

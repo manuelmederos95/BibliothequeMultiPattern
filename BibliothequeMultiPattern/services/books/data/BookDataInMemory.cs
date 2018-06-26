@@ -9,10 +9,9 @@ namespace BibliothequeMultiPattern.book.data
 {
      public class BookDataInMemory : IBookData
     {
-        private static BookDataInMemory bookDataInMemory { get; set; }
         private List<Book> Books;
 
-        private BookDataInMemory()
+        public BookDataInMemory()
         {
             Books = new List<Book>();
         }
@@ -51,15 +50,6 @@ namespace BibliothequeMultiPattern.book.data
         {
             Remove(book);
             Add(book);
-        }
-
-        public static BookDataInMemory GetInstance()
-        {
-            if (null == bookDataInMemory)
-            {
-                bookDataInMemory = new BookDataInMemory();
-            }
-            return bookDataInMemory;
         }
 
         private bool CheckIsComplete(Book book)

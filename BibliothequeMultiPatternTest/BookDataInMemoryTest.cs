@@ -13,7 +13,7 @@ namespace BibliothequeMultiPatternTest
     [TestClass]
     public class BookDataInMemoryTest
     {
-        IBookData bookDataInMemory = BookDataInMemory.GetInstance();
+        IBookData bookDataInMemory = new BookDataInMemory();
 
         private void InitData()
         {

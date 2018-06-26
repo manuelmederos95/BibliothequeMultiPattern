@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace BibliothequeMultiPattern.services.users.service
 {
-    class UserService : IUserService
+    class UserServiceImpl : IUserService
     {
-        IUserData userData = UserDataInMemory.getInstance();
+        IUserData userData;
+
+        public UserServiceImpl(IUserData userData)
+        {
+            this.userData = userData;
+        }
 
         public bool Add(IUser user)
         {

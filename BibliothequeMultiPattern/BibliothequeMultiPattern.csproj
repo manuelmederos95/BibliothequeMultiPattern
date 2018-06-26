@@ -59,12 +59,14 @@
   <ItemGroup>
     <Compile Include="services\books\data\BookDataInMemory.cs" />
     <Compile Include="services\books\data\IBookData.cs" />
-    <Compile Include="services\books\BookBasic.cs" />
-    <Compile Include="services\books\BookWithDvd.cs" />
-    <Compile Include="services\books\Book.cs" />
+    <Compile Include="services\books\model\BookBasic.cs" />
+    <Compile Include="services\books\model\BookWithDvd.cs" />
+    <Compile Include="services\books\model\Book.cs" />
     <Compile Include="controller\LibraryController.cs" />
+    <Compile Include="services\books\service\IBookService.cs" />
+    <Compile Include="services\books\service\BookServiceImpl.cs" />
     <Compile Include="services\users\service\IUserService.cs" />
-    <Compile Include="services\users\service\UserService.cs" />
+    <Compile Include="services\users\service\UserServiceImpl.cs" />
     <Compile Include="vues\LibraryGraphicConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,9 +77,9 @@
     <Compile Include="services\states\IState.cs" />
     <Compile Include="services\users\data\IUserData.cs" />
     <Compile Include="services\users\data\UserDataInMemory.cs" />
-    <Compile Include="services\users\IUser.cs" />
-    <Compile Include="services\users\impl\Librarian.cs" />
-    <Compile Include="services\users\impl\Student.cs" />
+    <Compile Include="services\users\model\IUser.cs" />
+    <Compile Include="services\users\model\impl\Librarian.cs" />
+    <Compile Include="services\users\model\impl\Student.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
