@@ -6,5 +6,5 @@ public interface IUserData
 
      bool Add(IUser user);
 
-     void Remove(IUser user);
+     bool Remove(string login);
 }

@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibliothequeMultiPattern", "BibliothequeMultiPattern\BibliothequeMultiPattern.csproj", "{4458A64B-8B71-477C-B10B-452B11A5C826}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibliothequeMultiPatternTest", "BibliothequeMultiPatternTest\BibliothequeMultiPatternTest.csproj", "{83F6F1CF-7F52-4319-BB1F-6D7951947288}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4458A64B-8B71-477C-B10B-452B11A5C826} = {4458A64B-8B71-477C-B10B-452B11A5C826}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

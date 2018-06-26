@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BibliothequeMultiPattern.book
 {
     
-    class BookWithDvd : Book
+    public class BookWithDvd : Book
     {
         private int NbDvd { get; set; }
         public BookWithDvd (int id, String titre, int nbDvd) : base(id, titre)
