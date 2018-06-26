@@ -1,4 +1,6 @@
-﻿using BibliothequeMultiPattern.services.users;
+﻿using BibliothequeMultiPattern.book.data;
+using BibliothequeMultiPattern.services.books.service;
+using BibliothequeMultiPattern.services.users;
 using BibliothequeMultiPattern.services.users.service;
 using System;
 using System.Collections.Generic;
@@ -10,14 +12,20 @@ namespace BibliothequeMultiPattern
 {
     public class LibraryController
     {
+        IUserData userData;
+        IBookData bookData;
         IUserService userService;
+        IBookService bookService;
+
         public LibraryController()
         {
-            /** Gestion des Utilisateurs **/
-            userService = new UserService();
-
+            userData = new UserDataInMemory();
+            bookData = new BookDataInMemory();
+            userService = new UserServiceImpl(userData);
+            bookService = new BookServiceImpl(bookData);
         }
 
+        /** Gestion des Utilisateurs **/
         public bool Add(IUser user) {
             return userService.Add(user);
         }
@@ -32,14 +40,20 @@ namespace BibliothequeMultiPattern
             return userService.Connect(login, motDePasse);
         }
 
+        /** Gestion des Livres **/
+        public void AddBook(Book book)
+        {
+            bookService.Add(book);
+        }
 
-        //s'authentifier
+        public bool RemoveBook(Book book)
+        {
+            return bookService.Remove(book);
+        }
 
-        //creer un compte
-
-        //supprimer un compte
-
-
-
+        public List<Book> SearchBook(string value)
+        {
+            return bookService.Search(value);
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace BibliothequeMultiPatternTest
     [TestClass]
     public class UserDataInMemoryTest
     {
-        IUserData userDataInMemory = UserDataInMemory.getInstance();
+        IUserData userDataInMemory = new UserDataInMemory();
 
         private void InitData()
         {
