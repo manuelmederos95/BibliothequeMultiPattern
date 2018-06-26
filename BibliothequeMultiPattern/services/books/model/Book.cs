@@ -11,8 +11,8 @@ namespace BibliothequeMultiPattern
     //abstract class for book
     public abstract class Book
     {
-        public int Id { get; set; }
-        public String Title { get; set; }
+        public int Id { get; }
+        public String Title { get; }
         public IState State { get;}
 
         protected Book(int id, String titre)
