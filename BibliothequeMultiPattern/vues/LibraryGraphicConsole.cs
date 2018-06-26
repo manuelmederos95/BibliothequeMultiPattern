@@ -8,5 +8,14 @@ namespace BibliothequeMultiPattern
 {
     class LibraryGraphicConsole
     {
+        public static String consoleLogin()
+        {
+            return "Login: ";
+        }
+
+        public static String consolePassword()
+        {
+            return "Mot de passe: ";
+        }
     }
 }
