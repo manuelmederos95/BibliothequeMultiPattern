@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliothequeMultiPattern.book;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace BibliothequeMultiPattern
 {
     class LibraryGraphicConsole
     {
+        int counter = 3;
         LibraryController controller;
         public LibraryGraphicConsole()
         {
@@ -79,8 +81,12 @@ namespace BibliothequeMultiPattern
                     this.librarianMode();
                     break;
                 case 3:
+                    this.etatLivre();
+                    this.librarianMode();
                     break;
                 case 4:
+                    this.inscrireEtudiant();
+                    this.librarianMode();
                     break;
                 case 5:
                     this.start();
@@ -95,7 +101,43 @@ namespace BibliothequeMultiPattern
         public void studentMode()
         {
             Console.WriteLine("------------Student Menu------------");
-            Console.ReadLine();
+            Console.WriteLine("1 - Recherche livre");
+            Console.WriteLine("2 - Emprunter livre");
+            Console.WriteLine("3 - Rendre livre");
+            Console.WriteLine("4 - Deconnexion");
+            String choise = Console.ReadLine();
+            int choix = 0;
+            try
+            {
+                choix = Int32.Parse(choise);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Erreur de syntaxe");
+                this.librarianMode();
+            }
+            switch (choix)
+            {
+                case 1:
+                    this.rechercheLivre();
+                    this.librarianMode();
+                    break;
+                case 2:
+                    this.ajouterLivre();
+                    this.librarianMode();
+                    break;
+                case 3:
+                    this.inscrireEtudiant();
+                    this.librarianMode();
+                    break;
+                case 4:
+                    this.start();
+                    break;
+                default:
+                    Console.WriteLine("Erreur de syntaxe");
+                    this.librarianMode();
+                    break;
+            }
         }
 
         public void rechercheLivre()
@@ -103,15 +145,45 @@ namespace BibliothequeMultiPattern
             Console.Write("Entrez le livre à chercher: ");
             String recherche = Console.ReadLine();
             List<Book> resultatRecherche = controller.SearchBook(recherche);
+            foreach (var item in resultatRecherche)
+            {
+                Console.WriteLine("id: " + item.Id + " titre: " + item.Title);
+            }
+        }
+
+        private void etatLivre()
+        {
+            Console.Write("Entrez le livre à voir état: ");
+            String recherche = Console.ReadLine();
+            List<Book> resultatRecherche = controller.SearchBook(recherche);
+            foreach (var item in resultatRecherche)
+            {
+                Console.WriteLine("id: " + item.Id + " titre: " + item.Title + "état: " + item.State);
+            }
         }
 
         public void ajouterLivre()
         {
-            Console.Write("Entrez le type de livre à rajouter: ");
-            String type = Console.ReadLine();
+            counter++;
             Console.Write("Entrez le titre du livre à rajouter: ");
             String titre = Console.ReadLine();
+            controller.AddBook(new BookBasic(counter, titre));
+
         }
- 
+
+        private void inscrireEtudiant()
+        {
+            Console.Write("Entrez le nom de l'étudiant à inscrire: ");
+            String name = Console.ReadLine();
+            Console.Write("Entrez le prenom de l'étudiant à inscrire: ");
+            String firstName = Console.ReadLine();
+            Console.Write("Entrez le login de l'étudiant à inscrire: ");
+            String login = Console.ReadLine();
+            Console.Write("Entrez le mot de passe de l'étudiant à inscrire: ");
+            String mdp = Console.ReadLine();
+            IUser student = new Student(name, firstName, login, mdp);
+            controller.Add(student);
+        }
+
     }
 }

@@ -14,6 +14,12 @@ namespace BibliothequeMultiPattern.book.data
         public BookDataInMemory()
         {
             Books = new List<Book>();
+            Book book1 = new BookBasic(1, "Harry Potter 1");
+            Book book2 = new BookWithDvd(2, "TOIC Preparation", 3);
+            Book book3 = new BookBasic(3, "Harry Potter 2");
+            Books.Add(book1);
+            Books.Add(book2);
+            Books.Add(book3);
         }
   
         public void Add(Book book)
