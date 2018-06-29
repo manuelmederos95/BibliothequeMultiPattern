@@ -8,9 +8,10 @@ namespace BibliothequeMultiPattern
 {
     class LibraryGraphicConsole
     {
+        LibraryController controller;
         public LibraryGraphicConsole()
         {
-            
+            controller = new LibraryController();
         }
 
         public void start()
@@ -70,8 +71,12 @@ namespace BibliothequeMultiPattern
             switch (choix)
             {
                 case 1:
+                    this.rechercheLivre();
+                    this.librarianMode();
                     break;
                 case 2:
+                    this.ajouterLivre();
+                    this.librarianMode();
                     break;
                 case 3:
                     break;
@@ -91,6 +96,21 @@ namespace BibliothequeMultiPattern
         {
             Console.WriteLine("------------Student Menu------------");
             Console.ReadLine();
+        }
+
+        public void rechercheLivre()
+        {
+            Console.Write("Entrez le livre à chercher: ");
+            String recherche = Console.ReadLine();
+            List<Book> resultatRecherche = controller.SearchBook(recherche);
+        }
+
+        public void ajouterLivre()
+        {
+            Console.Write("Entrez le type de livre à rajouter: ");
+            String type = Console.ReadLine();
+            Console.Write("Entrez le titre du livre à rajouter: ");
+            String titre = Console.ReadLine();
         }
  
     }
