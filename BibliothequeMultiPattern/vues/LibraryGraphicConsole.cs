@@ -1,4 +1,6 @@
 ﻿using BibliothequeMultiPattern.book;
+using BibliothequeMultiPattern.model;
+using BibliothequeMultiPattern.services.users.service.dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +15,13 @@ namespace BibliothequeMultiPattern
         LibraryController controller;
         public LibraryGraphicConsole()
         {
-            controller = new LibraryController();
+            controller = controller.GetDefaultLibrarianController();
         }
 
         public void start()
         {
-            LibraryController controller = new LibraryController();
-            IUser user;
+           // LibraryController controller = new LibraryController();
+            UserDto user;
             Console.WriteLine("------------Connexion------------");
             do {
                 String login = this.consoleLogin();
@@ -29,7 +31,7 @@ namespace BibliothequeMultiPattern
 
             Console.WriteLine("------------Logged------------");
             Console.WriteLine("Bienvenue " + user.FirstName + " " + user.Name);
-            if(user.GetRole().Equals("Librarian"))
+            if(user.Role.Equals("Librarian"))
             {
                 this.librarianMode();
             }
@@ -120,15 +122,15 @@ namespace BibliothequeMultiPattern
             {
                 case 1:
                     this.rechercheLivre();
-                    this.librarianMode();
+                    this.studentMode();
                     break;
                 case 2:
-                    this.ajouterLivre();
-                    this.librarianMode();
+                    this.emprunterLivre();
+                    this.studentMode();
                     break;
                 case 3:
-                    this.inscrireEtudiant();
-                    this.librarianMode();
+                    this.rendreLivre();
+                    this.studentMode();
                     break;
                 case 4:
                     this.start();
@@ -138,6 +140,16 @@ namespace BibliothequeMultiPattern
                     this.librarianMode();
                     break;
             }
+        }
+
+        private void rendreLivre()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void emprunterLivre()
+        {
+            throw new NotImplementedException();
         }
 
         public void rechercheLivre()
@@ -181,8 +193,8 @@ namespace BibliothequeMultiPattern
             String login = Console.ReadLine();
             Console.Write("Entrez le mot de passe de l'étudiant à inscrire: ");
             String mdp = Console.ReadLine();
-            IUser student = new Student(name, firstName, login, mdp);
-            controller.Add(student);
+            UserDto student = new UserDto(login, name, firstName, "Student", ""); 
+            controller.Add(student, mdp);
         }
 
     }
