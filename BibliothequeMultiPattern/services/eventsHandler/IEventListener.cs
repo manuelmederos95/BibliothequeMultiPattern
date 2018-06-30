@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace BibliothequeMultiPattern.events.handlers
 {
-    interface ILibrarianEvent
+    public interface IEventListener
     {
+        void OnEvent(Event librarianEvent);
     }
 }

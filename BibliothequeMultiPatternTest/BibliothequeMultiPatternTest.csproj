@@ -48,9 +48,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookDataInMemoryTest.cs" />
+    <Compile Include="controller\LibraryControllerTest.cs" />
+    <Compile Include="persistences\AuthenticateInMemoryImplTest.cs" />
+    <Compile Include="persistences\BookDataInMemoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserDataInMemoryTest.cs" />
+    <Compile Include="persistences\UserInMemoryImplTest.cs" />
+    <Compile Include="services\UserServiceImplTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

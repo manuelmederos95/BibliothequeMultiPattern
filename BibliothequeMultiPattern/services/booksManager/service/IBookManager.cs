@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BibliothequeMultiPattern.services.books.service
 {
-    interface IBookService
+    public interface IBookService
     {
         void Add(Book book);
         bool Remove(Book book);

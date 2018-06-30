@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace BibliothequeMultiPattern.events.handlers
 {
-    class LibrarianEventHandler
+    public class Event
     {
-        List<ILibrarianEvent> subscribers;
+        string Type { get;}
+        string Value { get;}
 
-        public LibrarianEventHandler()
+        public Event(string type, string value)
         {
-            this.subscribers = new List<ILibrarianEvent>();
+            Type = type;
+            Value = value;
         }
     }
 }

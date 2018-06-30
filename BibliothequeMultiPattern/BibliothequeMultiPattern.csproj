@@ -57,31 +57,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="events\handlers\ILibrarianEvent.cs" />
-    <Compile Include="events\handlers\LibrarianEventHandler.cs" />
-    <Compile Include="services\books\data\BookDataInMemory.cs" />
-    <Compile Include="services\books\data\IBookData.cs" />
-    <Compile Include="services\books\model\BookBasic.cs" />
-    <Compile Include="services\books\model\BookWithDvd.cs" />
-    <Compile Include="services\books\model\Book.cs" />
+    <Compile Include="model\User.cs" />
+    <Compile Include="model\UserId.cs" />
+    <Compile Include="model\UserSession.cs" />
+    <Compile Include="persistences\authenticates\inMemory\AuthenticateInMemoryAdapter.cs" />
+    <Compile Include="persistences\authenticates\inMemory\AuthenticateInMemoryDao.cs" />
+    <Compile Include="persistences\users\inMemory\UserInMemoryAdapter.cs" />
+    <Compile Include="persistences\users\inMemory\UserInMemoryDao.cs" />
+    <Compile Include="persistences\users\inMemory\UserInMemoryImpl.cs" />
+    <Compile Include="persistences\users\IUserData.cs" />
+    <Compile Include="persistences\authenticates\inMemory\AuthenticateInMemoryImpl.cs" />
+    <Compile Include="persistences\authenticates\IAuthenticateData.cs" />
+    <Compile Include="model\Authenticate.cs" />
+    <Compile Include="model\AuthenticateId.cs" />
+    <Compile Include="services\eventsHandler\IEventListener.cs" />
+    <Compile Include="model\Event.cs" />
+    <Compile Include="services\eventsHandler\EventDispatcher.cs" />
+    <Compile Include="persistences\books\inMemory\BookInMemory.cs" />
+    <Compile Include="persistences\books\IBookData.cs" />
+    <Compile Include="model\BookBasic.cs" />
+    <Compile Include="model\BookWithDvd.cs" />
+    <Compile Include="model\Book.cs" />
     <Compile Include="controller\LibraryController.cs" />
-    <Compile Include="services\books\service\IBookService.cs" />
-    <Compile Include="services\books\service\BookServiceImpl.cs" />
-    <Compile Include="services\users\service\IUserService.cs" />
-    <Compile Include="services\users\service\UserServiceImpl.cs" />
+    <Compile Include="services\booksManager\service\IBookManager.cs" />
+    <Compile Include="services\booksManager\service\BookManagerImpl.cs" />
+    <Compile Include="services\idsGenerator\AuthenticateIdGenerator.cs" />
+    <Compile Include="services\idsGenerator\UserIdGenerator.cs" />
+    <Compile Include="services\sessionManager\ISessionManager.cs" />
+    <Compile Include="services\sessionManager\UniqueSessionManagerImpl.cs" />
+    <Compile Include="services\usersManager\service\dto\UserDto.cs" />
+    <Compile Include="services\usersManager\service\IUserService.cs" />
+    <Compile Include="services\usersManager\service\dto\UserDtoAdapter.cs" />
+    <Compile Include="services\usersManager\service\UserServiceImpl.cs" />
+    <Compile Include="services\Util.cs" />
     <Compile Include="vues\LibraryGraphicConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="services\books\states\impl\Borrowed.cs" />
-    <Compile Include="services\books\states\impl\Exposed.cs" />
-    <Compile Include="services\books\states\impl\Returned.cs" />
-    <Compile Include="services\books\states\impl\Stocked.cs" />
-    <Compile Include="services\books\states\IState.cs" />
-    <Compile Include="services\users\data\IUserData.cs" />
-    <Compile Include="services\users\data\UserDataInMemory.cs" />
-    <Compile Include="services\users\model\IUser.cs" />
-    <Compile Include="services\users\model\impl\Librarian.cs" />
-    <Compile Include="services\users\model\impl\Student.cs" />
+    <Compile Include="services\booksManager\states\impl\Borrowed.cs" />
+    <Compile Include="services\booksManager\states\impl\Exposed.cs" />
+    <Compile Include="services\booksManager\states\impl\Returned.cs" />
+    <Compile Include="services\booksManager\states\impl\Stocked.cs" />
+    <Compile Include="services\booksManager\states\IState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -98,5 +114,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

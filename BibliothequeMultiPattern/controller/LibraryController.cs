@@ -1,43 +1,61 @@
 ﻿using BibliothequeMultiPattern.book.data;
+using BibliothequeMultiPattern.events.handlers;
+using BibliothequeMultiPattern.persistences.authenticator.inMemory;
+using BibliothequeMultiPattern.persistences.users;
+using BibliothequeMultiPattern.persistences.users.inMemory;
+using BibliothequeMultiPattern.services;
+using BibliothequeMultiPattern.services.authenticator.data;
 using BibliothequeMultiPattern.services.books.service;
+using BibliothequeMultiPattern.services.sessionManager;
 using BibliothequeMultiPattern.services.users;
 using BibliothequeMultiPattern.services.users.service;
-using System;
+using BibliothequeMultiPattern.services.users.service.dto;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BibliothequeMultiPattern
 {
-    public class LibraryController
+    public class LibraryController 
     {
-        IUserData userData;
-        IBookData bookData;
         IUserService userService;
         IBookService bookService;
 
-        public LibraryController()
+        public LibraryController(IUserService userService, IBookService bookService)
         {
-            userData = new UserDataInMemory();
-            bookData = new BookDataInMemory();
-            userService = new UserServiceImpl(userData);
+            this.userService = userService;
+            this.bookService = bookService;
+        }
+
+        public LibraryController GetDefaultLibrarianController()
+        {
+            IUserData userData = new UserInMemoryImpl(new UserInMemoryAdapter());
+            IAuthenticatorData authenticateData = new AuthenticateInMemoryImpl(new AuthenticateInMemoryAdapter());
+            IBookData bookData = new BookDataInMemory();
+
+            userService = new UserServiceImpl(userData, authenticateData, new UserDtoAdapter(), new UniqueSessionManagerImpl(new EventDispatcher()));
             bookService = new BookServiceImpl(bookData);
+
+            return new LibraryController(userService, bookService);
         }
 
         /** Gestion des Utilisateurs **/
-        public bool Add(IUser user) {
-            return userService.Add(user);
+
+        public bool Add(UserDto userdto, string password) {
+            return userService.Add(userdto, password);
         }
 
         public bool Remove(string login)
         {
             return userService.Remove(login);
         }
-
-        public IUser Connect(string login, string motDePasse)
+        
+        public UserDto Connect(string login, string motDePasse)
         {
             return userService.Connect(login, motDePasse);
+        }
+       
+        public bool LogOut(string token)
+        {
+            return userService.DisConnect(token);
         }
 
         /** Gestion des Livres **/
@@ -54,6 +72,12 @@ namespace BibliothequeMultiPattern
         public List<Book> SearchBook(string value)
         {
             return bookService.Search(value);
+        }
+
+        /** Notifications **/
+       public List<Event> GetEvents(string token)
+        {
+            return userService.GetEvents(token);
         }
     }
 }
