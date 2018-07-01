@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliothequeMultiPattern.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,9 @@ namespace BibliothequeMultiPattern.services.authenticator.model
     {
         public AuthenticateId authenticateId { get; }
         public string login { get; }
-        public string role { get; }
+        public Role role { get; }
 
-        public Authenticate(AuthenticateId authenticateId, string login, string role)
+        public Authenticate(AuthenticateId authenticateId, string login, Role role)
         {
             this.authenticateId = authenticateId;
             this.login = login;

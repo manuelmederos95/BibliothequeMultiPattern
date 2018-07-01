@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliothequeMultiPattern.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace BibliothequeMultiPattern.services.books.service
         bool Add(Book book);
         bool Remove(string id);
         bool Update(Book book);
-        bool NextStep(string bookId, string role);
+        bool NextStep(string bookId, Role role);
         List<Book> Search( string value);
         Book GetById(string bookId);
     }

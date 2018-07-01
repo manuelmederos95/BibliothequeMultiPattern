@@ -1,5 +1,6 @@
 ﻿using BibliothequeMultiPattern.book.data;
 using BibliothequeMultiPattern.events.handlers;
+using BibliothequeMultiPattern.model;
 using BibliothequeMultiPattern.persistences.authenticator.inMemory;
 using BibliothequeMultiPattern.persistences.users;
 using BibliothequeMultiPattern.persistences.users.inMemory;
@@ -39,16 +40,16 @@ namespace BibliothequeMultiPattern
 
         /** Gestion des Utilisateurs **/
 
-        public bool Add(UserDto userdto, string password) {
+        public bool AddUser(UserDto userdto, string password) {
             return userService.Add(userdto, password);
         }
 
-        public bool Remove(string login)
+        public bool RemoveUser(string login)
         {
             return userService.Remove(login);
         }
         
-        public UserDto Connect(string login, string motDePasse)
+        public UserDto ConnectUser(string login, string motDePasse)
         {
             return userService.Connect(login, motDePasse);
         }
@@ -84,7 +85,7 @@ namespace BibliothequeMultiPattern
             return bookService.Update(book);
         }*/
 
-        public bool NextStepForBook(string bookId, string role) {
+        public bool NextStepForBook(string bookId, Role role) {
             return bookService.NextStep(bookId, role);
          }
 

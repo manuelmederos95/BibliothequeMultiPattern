@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliothequeMultiPattern.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,9 @@ namespace BibliothequeMultiPattern.persistences.authenticator.adapter
         public string id { get; set; }
         public string login { get; set; }
         public string password { get; set; }
-        public string role { get; set; }
+        public Role role { get; set; }
 
-        public AuthenticateInMemoryDao(string id, string login, string password, string role)
+        public AuthenticateInMemoryDao(string id, string login, string password, Role role)
         {
             this.id = id;
             this.login = login;

@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="model\Role.cs" />
     <Compile Include="model\User.cs" />
     <Compile Include="model\UserId.cs" />
     <Compile Include="model\UserSession.cs" />

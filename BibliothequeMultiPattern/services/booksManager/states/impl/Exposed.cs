@@ -1,4 +1,5 @@
 ﻿using BibliothequeMultiPattern.events.handlers;
+using BibliothequeMultiPattern.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace BibliothequeMultiPattern.state.impl
 {
     class Exposed : IState
     {
-        public bool authorizedUser(string role)
+        public bool authorizedUser(Role role)
         {
-            return role.Equals("student");
+            return role.Equals(Role.student);
         }
 
         public string getInfo()

@@ -1,4 +1,5 @@
 ﻿using BibliothequeMultiPattern.book;
+using BibliothequeMultiPattern.model;
 using BibliothequeMultiPattern.services.users.service.dto;
 using System;
 using System.Collections.Generic;
@@ -17,20 +18,30 @@ namespace BibliothequeMultiPattern
             controller = new LibraryController();
         }
 
+        private void initialUser(LibraryController controller)
+        {
+            /* Création d'un utilisateur initial */
+            UserDto userDto = new UserDto("admin", "ADMIN name", "ADMIN firstName", Role.librarian, null);
+            controller.AddUser(userDto, "admin");
+        }
+
         public void start()
         {
             LibraryController controller = new LibraryController();
+
+            initialUser(controller);
+
             UserDto user;
             Console.WriteLine("------------Connexion------------");
             do {
                 String login = this.consoleLogin();
                 String mdp = this.consolePassword();
-                user = controller.Connect(login, mdp);
+                user = controller.ConnectUser(login, mdp);
             }while (user == null) ;
 
             Console.WriteLine("------------Logged------------");
             Console.WriteLine("Bienvenue " + user.FirstName + " " + user.Name);
-            if(user.Role.Equals("Librarian"))
+            if(user.Role.Equals(Role.librarian))
             {
                 this.librarianMode();
             }
@@ -55,11 +66,11 @@ namespace BibliothequeMultiPattern
 
         public void librarianMode()
         {
-            Console.WriteLine("------------Librarian Menu------------");
-            Console.WriteLine("1 - Recherche livre");
-            Console.WriteLine("2 - Ajouter livre");
+            Console.WriteLine("------------Menu Bibliothécaire------------");
+            Console.WriteLine("1 - Rechercher un livre");
+            Console.WriteLine("2 - Ajouter un livre");
             Console.WriteLine("3 - Voir état livre");
-            Console.WriteLine("4 - Inscrire étudiant");
+            Console.WriteLine("4 - Inscrire un(e) étudiant(e)");
             Console.WriteLine("5 - Deconnexion");
             String choise = Console.ReadLine();
             int choix = 0;
@@ -102,8 +113,8 @@ namespace BibliothequeMultiPattern
         public void studentMode()
         {
             Console.WriteLine("------------Student Menu------------");
-            Console.WriteLine("1 - Recherche livre");
-            Console.WriteLine("2 - Emprunter livre");
+            Console.WriteLine("1 - Recherche un livre");
+            Console.WriteLine("2 - Emprunter un livre");
             Console.WriteLine("3 - Rendre livre");
             Console.WriteLine("4 - Deconnexion");
             String choise = Console.ReadLine();
@@ -143,23 +154,23 @@ namespace BibliothequeMultiPattern
 
         public void rechercheLivre()
         {
-            Console.Write("Entrez le livre à chercher: ");
+            Console.Write("Entrez le titre du livre à chercher: ");
             String recherche = Console.ReadLine();
             List<Book> resultatRecherche = controller.SearchBook(recherche);
             foreach (var item in resultatRecherche)
             {
-                Console.WriteLine("id: " + item.Id + " titre: " + item.Title);
+                Console.WriteLine("identifiant: " + item.Id + " titre: " + item.Title);
             }
         }
 
         private void etatLivre()
         {
-            Console.Write("Entrez le livre à voir état: ");
+            Console.Write("Entrez l'identifiant du livre dont vous souhaitez connaître le status: ");
             String recherche = Console.ReadLine();
             List<Book> resultatRecherche = controller.SearchBook(recherche);
             foreach (var item in resultatRecherche)
             {
-                Console.WriteLine("id: " + item.Id + " titre: " + item.Title + "état: " + item.State);
+                Console.WriteLine("identifiant: " + item.Id + " titre: " + item.Title + "état: " + item.State);
             }
         }
 
@@ -182,8 +193,8 @@ namespace BibliothequeMultiPattern
             String login = Console.ReadLine();
             Console.Write("Entrez le mot de passe de l'étudiant à inscrire: ");
             String mdp = Console.ReadLine();
-            UserDto student = new UserDto(login, name, firstName, "student", null);
-            controller.Add(student, mdp);
+            UserDto student = new UserDto(login, name, firstName, Role.student, null);
+            controller.AddUser(student, mdp);
         }
     }
 }

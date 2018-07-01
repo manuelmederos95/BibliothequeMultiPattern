@@ -1,5 +1,6 @@
 ﻿using BibliothequeMultiPattern.book.data;
 using BibliothequeMultiPattern.events.handlers;
+using BibliothequeMultiPattern.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,12 +51,10 @@ namespace BibliothequeMultiPattern.services.books.service
             return bookData.Search(value);
         }
 
-        public bool NextStep(string bookId, string role)
+        public bool NextStep(string bookId, Role role)
         {
             if(null != bookId
-                && !"".Equals(bookId)
-                && null != role
-                && !"".Equals(role))
+                && !"".Equals(bookId))
             {
                 Book book = bookData.GetById(bookId);
                 if (book.State.authorizedUser(role))
