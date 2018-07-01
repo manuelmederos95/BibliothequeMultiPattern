@@ -10,7 +10,7 @@ namespace BibliothequeMultiPattern.book
     public class BookWithDvd : Book
     {
         private int NbDvd { get; set; }
-        public BookWithDvd (int id, String titre, int nbDvd) : base(id, titre)
+        public BookWithDvd (string id, string titre, int nbDvd) : base(id, titre)
         {
             this.NbDvd = nbDvd;
         }

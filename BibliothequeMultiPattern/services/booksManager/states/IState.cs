@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliothequeMultiPattern.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace BibliothequeMultiPattern.state
     {
       string getInfo();
       bool isAvailable();
+      bool authorizedUser(Role role);
       IState nextStep();
+        string getName();
     }
 }

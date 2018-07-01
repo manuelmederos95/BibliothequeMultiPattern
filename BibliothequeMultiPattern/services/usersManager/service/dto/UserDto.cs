@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BibliothequeMultiPattern.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,11 +12,11 @@ namespace BibliothequeMultiPattern.services.users.service.dto
         public string Login { get; }
         public string Name { get; set; }
         public string FirstName { get; set; }
-        public string Role { get;}
+        public Role Role { get;}
         public string Token { get; }
 
 
-        public UserDto(string login, string name, string firstName, string role, string token)
+        public UserDto(string login, string name, string firstName, Role role, string token)
         {
             Login = login;
             Name = name;

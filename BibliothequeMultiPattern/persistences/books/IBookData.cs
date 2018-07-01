@@ -8,9 +8,10 @@ namespace BibliothequeMultiPattern.book.data
 {
     public interface IBookData
     {
-        void Add(Book book);
-        bool Remove(Book book);
-        void Update(Book book);
+        bool Add(Book book);
+        bool Remove(string id);
+        bool Update(Book book);
         List<Book> Search(string value);
+        Book GetById(string id);
     }
 }

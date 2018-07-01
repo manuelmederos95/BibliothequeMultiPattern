@@ -18,16 +18,16 @@ namespace BibliothequeMultiPatternTest
         private void InitData()
         {
             ((BookDataInMemory)bookDataInMemory).Clear();
-            BookBasic book0 = new BookBasic(0, "Livre 0");
+            BookBasic book0 = new BookBasic("0", "Livre 0");
             bookDataInMemory.Add(book0);
-            BookWithDvd book1 = new BookWithDvd(1, "Livre 1", 1);
+            BookWithDvd book1 = new BookWithDvd("1", "Livre 1", 1);
             bookDataInMemory.Add(book1);
         }
 
         [TestMethod]
         public void Should_add_complet_basic_book()
         {
-            Book bookBasic = new BookBasic(1, "Titre du livre");
+            Book bookBasic = new BookBasic("1", "Titre du livre");
             bookDataInMemory.Add(bookBasic);
             Assert.AreEqual(1,bookDataInMemory.Search("Titre du livre").Count());
         }
@@ -36,7 +36,7 @@ namespace BibliothequeMultiPatternTest
         public void Should_not_add_incomplet_basic_book()
         {
             ((BookDataInMemory) bookDataInMemory).Clear();
-            Book bookBasic2 = new BookBasic(2, "");
+            Book bookBasic2 = new BookBasic("2", "");
             bookDataInMemory.Add(bookBasic2);
             Assert.AreEqual(0, bookDataInMemory.Search("").Count());
             }

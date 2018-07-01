@@ -1,5 +1,6 @@
 ﻿using BibliothequeMultiPattern.book.data;
 using BibliothequeMultiPattern.events.handlers;
+using BibliothequeMultiPattern.model;
 using BibliothequeMultiPattern.persistences.authenticator.inMemory;
 using BibliothequeMultiPattern.persistences.users;
 using BibliothequeMultiPattern.persistences.users.inMemory;
@@ -25,30 +26,30 @@ namespace BibliothequeMultiPattern
             this.bookService = bookService;
         }
 
-        public LibraryController GetDefaultLibrarianController()
+        public LibraryController()
         {
             IUserData userData = new UserInMemoryImpl(new UserInMemoryAdapter());
             IAuthenticatorData authenticateData = new AuthenticateInMemoryImpl(new AuthenticateInMemoryAdapter());
             IBookData bookData = new BookDataInMemory();
+            EventDispatcher eventDispatcher = new EventDispatcher();
+            ISessionManager sessionManager = new UniqueSessionManagerImpl(eventDispatcher);
 
-            userService = new UserServiceImpl(userData, authenticateData, new UserDtoAdapter(), new UniqueSessionManagerImpl(new EventDispatcher()));
-            bookService = new BookServiceImpl(bookData);
-
-            return new LibraryController(userService, bookService);
+            userService = new UserServiceImpl(userData, authenticateData, new UserDtoAdapter(), sessionManager);
+            bookService = new BookServiceImpl(bookData, eventDispatcher); 
         }
 
         /** Gestion des Utilisateurs **/
 
-        public bool Add(UserDto userdto, string password) {
+        public bool AddUser(UserDto userdto, string password) {
             return userService.Add(userdto, password);
         }
 
-        public bool Remove(string login)
+        public bool RemoveUser(string login)
         {
             return userService.Remove(login);
         }
         
-        public UserDto Connect(string login, string motDePasse)
+        public UserDto ConnectUser(string login, string motDePasse)
         {
             return userService.Connect(login, motDePasse);
         }
@@ -59,14 +60,19 @@ namespace BibliothequeMultiPattern
         }
 
         /** Gestion des Livres **/
-        public void AddBook(Book book)
+        public bool AddBook(Book book)
         {
-            bookService.Add(book);
+            return bookService.Add(book);
         }
 
-        public bool RemoveBook(Book book)
+        public bool RemoveBook(string id)
         {
-            return bookService.Remove(book);
+            return bookService.Remove(id);
+        }
+
+        public Book GetByIdBook(string id)
+        {
+            return bookService.GetById(id);
         }
 
         public List<Book> SearchBook(string value)
@@ -74,8 +80,17 @@ namespace BibliothequeMultiPattern
             return bookService.Search(value);
         }
 
+        /*public bool UpdateBook(Book book)
+        {
+            return bookService.Update(book);
+        }*/
+
+        public bool NextStepForBook(string bookId, Role role) {
+            return bookService.NextStep(bookId, role);
+         }
+
         /** Notifications **/
-       public List<Event> GetEvents(string token)
+        public List<Event> GetEvents(string token)
         {
             return userService.GetEvents(token);
         }

@@ -26,16 +26,16 @@ namespace BibliothequeMultiPattern.services
             string token = random.Next().ToString();//todo test de colision
 
             UserSession userSession = new UserSession(userId);
-            connectedUser.Add(token, userSession);
             eventDispatcher.Register(userSession);
+            connectedUser.Add(token, userSession);
             return token;
         }
 
         public bool Delete(string token)
         {
             if (null == token
-                && token.Equals("")
-                && !connectedUser.ContainsKey(token)) { return false; }
+                || token.Equals("")
+                || !connectedUser.ContainsKey(token)) { return false; }
 
             connectedUser = new Dictionary<string, UserSession>();
             return true;
@@ -47,7 +47,9 @@ namespace BibliothequeMultiPattern.services
            connectedUser.TryGetValue(token, out userSession);
             if(null == userSession) { return null; }
 
-            return userSession.librarianEvents;
+            List<Event> toReturn = userSession.librarianEvents;
+            userSession.librarianEvents = new List<Event>();
+            return toReturn;
         }
     }
 }

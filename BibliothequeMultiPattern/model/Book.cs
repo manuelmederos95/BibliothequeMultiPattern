@@ -1,4 +1,5 @@
-﻿using BibliothequeMultiPattern.state;
+﻿using BibliothequeMultiPattern.events.handlers;
+using BibliothequeMultiPattern.state;
 using BibliothequeMultiPattern.state.impl;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,23 @@ namespace BibliothequeMultiPattern
     //abstract class for book
     public abstract class Book
     {
-        public int Id { get; }
-        public String Title { get; }
-        public IState State { get;}
+        public string Id { get; }
+        public string Title { get; }
+        public IState State { get; set; }
+        public EventDispatcher eventDispatcher { get; set; }
+        public string lastStepUserId { get; set; }
 
-        protected Book(int id, String titre)
+        protected Book(string id, string titre)
         {
             this.Id = id;
             this.Title = titre;
             State = new Stocked();
+        }
+
+        public void nextStep()
+        {
+        this.State = State.nextStep();
+        eventDispatcher.NotifyAll(new Event("[Book : " + Title + "]", System.DateTime.Now.ToShortDateString() + " - " +State.getInfo()));
         }
 
         public abstract float getRefoundPrice();

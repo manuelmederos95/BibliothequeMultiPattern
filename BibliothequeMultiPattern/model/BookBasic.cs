@@ -9,7 +9,7 @@ namespace BibliothequeMultiPattern.book
     public class BookBasic : Book
     {
 
-        public BookBasic(int id, String titre):base(id,titre)
+        public BookBasic(string id, string titre):base(id,titre)
         {
 
         }
@@ -18,5 +18,6 @@ namespace BibliothequeMultiPattern.book
             float BasicPrice = 50;
             return BasicPrice;
         }
+
     }
 }

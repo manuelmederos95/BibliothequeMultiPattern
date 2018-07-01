@@ -14,23 +14,26 @@ namespace BibliothequeMultiPattern.events.handlers
         public EventDispatcher()
         {
             this.subscribers = new List<IEventListener>();
+            this.waitingEvents = new List<Event>();
         }
 
         public void Register(IEventListener librarianListener)
         {
-            if(subscribers.Count() == 0)
+            if (subscribers.Count() == 0)
             {
                 foreach(var LibrarianEvent in waitingEvents)
                 {
                     librarianListener.OnEvent(LibrarianEvent);
                 }
+                waitingEvents = new List<Event>();
             }
+
             subscribers.Add(librarianListener);
         }
 
         public void NotifyAll(Event librarianEvent)
         {
-            if(subscribers.Count() == 0)
+            if (subscribers.Count() == 0)
             {
                 waitingEvents.Add(librarianEvent);
             } else
@@ -40,6 +43,11 @@ namespace BibliothequeMultiPattern.events.handlers
                     ILibrarianEvent.OnEvent(librarianEvent);
                 }
             }
+        }
+
+        public void ClearWaitingList()
+        {
+            this.waitingEvents = new List<Event>();
         }
     }
 }

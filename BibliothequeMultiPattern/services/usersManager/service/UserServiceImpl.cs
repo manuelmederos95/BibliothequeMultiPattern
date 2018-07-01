@@ -41,29 +41,39 @@ namespace BibliothequeMultiPattern.services.users.service
 
         public bool Add(UserDto userDto, string motDePasse)
         {
-            /* On crée les identifiants */
-            AuthenticateId authenticateId = authenticateIdGenerator.GenerateId();
-            bool result = authenticateData.Add(new Authenticate(authenticateId, userDto.Login, userDto.Role), motDePasse);
+            if(null != userDto
+                && null != motDePasse
+                && !"".Equals(motDePasse)){
+                /* On crée les identifiants */
+                AuthenticateId authenticateId = authenticateIdGenerator.GenerateId();
+                bool result = authenticateData.Add(new Authenticate(authenticateId, userDto.Login, userDto.Role), motDePasse);
 
-            if(!result) { return result;}
+                if (!result) { return result; }
 
-            /* On crée l'utilisateur */
-            UserId userId = userIdGenerator.GenerateId();
-            return userData.Add(userDtoAdapter.DtoToModel(userDto, userId, authenticateId));
+                /* On crée l'utilisateur */
+                UserId userId = userIdGenerator.GenerateId();
+                return userData.Add(userDtoAdapter.DtoToModel(userDto, userId, authenticateId));
+            }
+            return false;
         }
 
         public bool Remove(string login)
         {
-            Authenticate authenticate = authenticateData.GetByLogin(login);
-            if(null != authenticate)
+            if(null != login)
             {
+                Authenticate authenticate = authenticateData.GetByLogin(login);
+                if (null == authenticate) { return false; }
+
+                User user = userData.GetByAuthenticationId(authenticate.authenticateId.id);
+                if (null == user) { return false; }
+
                 /* On supprime l'utilisateur */
-                bool result = userData.Remove(authenticate.authenticateId.id);
+                bool result = userData.Remove(user.id.id);
 
                 if (!result) { return result; }
 
                 /* On supprime ses identifiants */
-                return authenticateData.Remove(login);
+                return authenticateData.Remove(login);                    
             }
             return false;
         }
@@ -93,7 +103,12 @@ namespace BibliothequeMultiPattern.services.users.service
 
         UserDto IUserService.Connect(string login, string motDePasse)
         {
-            if (motDePasse.Equals(authenticateData.GetPassword(login))){
+            if (null != motDePasse
+                && !"".Equals(motDePasse)
+                && null != login
+                && !"".Equals(login)
+                && motDePasse.Equals(authenticateData.GetPassword(login))){
+
                 Authenticate authenticate = authenticateData.GetByLogin(login);
                 User user = userData.GetByAuthenticationId(authenticate.authenticateId.id);
 
@@ -104,9 +119,9 @@ namespace BibliothequeMultiPattern.services.users.service
             return null;
         }
 
-        public bool DisConnect(string userId)
+        public bool DisConnect(string token)
         {
-            return sessionManager.Delete(userId);
+            return sessionManager.Delete(token);
         }
 
         public List<Event> GetEvents(string token)
