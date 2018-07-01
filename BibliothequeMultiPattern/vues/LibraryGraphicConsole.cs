@@ -83,7 +83,7 @@ namespace BibliothequeMultiPattern
             Console.WriteLine(">>> Bienvenue " + user.FirstName + " " + user.Name);
 
             if (user.Role.Equals(Role.librarian))
-            {
+            {   
                 this.librarianMode();
             }
             else
@@ -182,24 +182,24 @@ namespace BibliothequeMultiPattern
             catch (Exception exception)
             {
                 Console.WriteLine("Erreur de syntaxe");
-                this.librarianMode();
+                this.studentMode();
             }
             switch (choix)
             {
                 case 1:
                     this.rechercheLivre();
-                    this.librarianMode();
+                    this.studentMode();
                     break;
                 case 2:
-                    this.ajouterLivre();
-                    this.librarianMode();
+                    this.emprunteurLivre();
+                    this.studentMode();
                     break;
                 case 3:
-                    this.inscrireEtudiant();
-                    this.librarianMode();
+                    this.etatLivre();
+                    this.studentMode();
                     break;
                 case 4:
-                    this.start();
+                    this.logOut();
                     break;
                 default:
                     Console.WriteLine("Erreur de syntaxe");
@@ -295,6 +295,94 @@ namespace BibliothequeMultiPattern
                 else
                 {
                     Console.WriteLine("\n>>> Vous ne disposez pas de droit suffisant pour modifier le statut de ce livre.\n Seul les étudiant(e)s peuvent emprunter un livre.");
+
+                }
+            }
+        }
+
+        private void emprunteurLivre()
+        {
+            Console.WriteLine(
+                 "\n==========================================================" +
+                 "\n              Emprunter un livre               " +
+                 "\n==========================================================");
+            Console.Write("\nRappel des différents statut : En Stock > En Rayon > Emprunté > Temporairement indisponible");
+
+            Console.Write("\nEntrez l'identifiant du livre à emprunter: ");
+            String recherche = Console.ReadLine();
+            Book book = controller.GetByIdBook(recherche);
+           
+            if (null == book)
+            {
+                Console.WriteLine("\n>>> Veuillez entrer un identifiant valide.");
+            }
+            else
+            {
+                Console.WriteLine(
+               "\n----------------------------------------------------------" +
+               "\nDétail du livre avant modification" +
+               "\n----------------------------------------------------------");
+                Console.WriteLine("identifiant: " + book.Id + " | titre: " + book.Title + " | status: " + book.State.getName());
+                bool result = controller.NextStepForBook(recherche, user.Role);
+                if (result)
+                {
+                    Console.WriteLine("\n>>> Modification de statut reussie.");
+
+                    Console.WriteLine(
+                  "\n----------------------------------------------------------" +
+                  "\nDétail du livre après modification" +
+                  "\n----------------------------------------------------------");
+                    book = controller.GetByIdBook(recherche);
+                    Console.WriteLine("identifiant: " + book.Id + " | titre: " + book.Title + " | status: " + book.State.getName());
+
+                }
+                else
+                {
+                    Console.WriteLine("\n>>> Vous ne disposez pas de droit suffisant pour modifier le statut de ce livre.");
+
+                }
+            }
+        }
+
+        private void rendreLivre()
+        {
+            Console.WriteLine(
+                 "\n==========================================================" +
+                 "\n              Rendre un livre               " +
+                 "\n==========================================================");
+            Console.Write("\nRappel des différents statut : En Stock > En Rayon > Emprunté > Temporairement indisponible");
+
+            Console.Write("\nEntrez l'identifiant du livre à rendre: ");
+            String recherche = Console.ReadLine();
+            Book book = controller.GetByIdBook(recherche);
+
+            if (null == book)
+            {
+                Console.WriteLine("\n>>> Veuillez entrer un identifiant valide.");
+            }
+            else
+            {
+                Console.WriteLine(
+               "\n----------------------------------------------------------" +
+               "\nDétail du livre avant modification" +
+               "\n----------------------------------------------------------");
+                Console.WriteLine("identifiant: " + book.Id + " | titre: " + book.Title + " | status: " + book.State.getName());
+                bool result = controller.NextStepForBook(recherche, user.Role);
+                if (result)
+                {
+                    Console.WriteLine("\n>>> Modification de statut reussie.");
+
+                    Console.WriteLine(
+                  "\n----------------------------------------------------------" +
+                  "\nDétail du livre après modification" +
+                  "\n----------------------------------------------------------");
+                    book = controller.GetByIdBook(recherche);
+                    Console.WriteLine("identifiant: " + book.Id + " | titre: " + book.Title + " | status: " + book.State.getName());
+
+                }
+                else
+                {
+                    Console.WriteLine("\n>>> Vous ne disposez pas de droit suffisant pour modifier le statut de ce livre.");
 
                 }
             }
