@@ -23,7 +23,7 @@ namespace BibliothequeMultiPattern.services
         {
             if(null == userId) { return null; }
             Random random = new Random();
-            string token = random.Next().ToString();//todo test de colision
+            string token = random.Next().ToString();
 
             UserSession userSession = new UserSession(userId);
             eventDispatcher.Register(userSession);
@@ -45,7 +45,7 @@ namespace BibliothequeMultiPattern.services
         {
            UserSession userSession;
            connectedUser.TryGetValue(token, out userSession);
-            if(null == userSession) { return null; }
+            if(null == userSession) { return new List<Event>(); }
 
             List<Event> toReturn = userSession.librarianEvents;
             userSession.librarianEvents = new List<Event>();

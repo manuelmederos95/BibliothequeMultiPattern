@@ -28,7 +28,7 @@ namespace BibliothequeMultiPattern
         public void nextStep()
         {
         this.State = State.nextStep();
-        eventDispatcher.NotifyAll(new Event("[Book : " + Title + "]", System.DateTime.Now.ToShortDateString() + " - " +State.getInfo()));
+        eventDispatcher.NotifyAll(new Event("[" + State.getName() + "]", System.DateTime.Now.ToShortDateString() + "  ID: " + Id + "| TITRE:  " +Title));
         }
 
         public abstract float getRefoundPrice();

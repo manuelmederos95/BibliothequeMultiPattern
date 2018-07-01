@@ -1,4 +1,5 @@
 ﻿using BibliothequeMultiPattern.book;
+using BibliothequeMultiPattern.events.handlers;
 using BibliothequeMultiPattern.model;
 using BibliothequeMultiPattern.services.users.service.dto;
 using System;
@@ -12,28 +13,51 @@ namespace BibliothequeMultiPattern
     class LibraryGraphicConsole
     {
         UserDto user;
+        LibraryController controller;
+
 
         int counter = 3;
-        LibraryController controller;
         public LibraryGraphicConsole()
         {
             controller = new LibraryController();
+
+            initialUser(controller);
         }
 
         private void initialUser(LibraryController controller)
         {
             /* Création d'un utilisateur initial */
-            UserDto userDto = new UserDto("admin", "ADMIN name", "ADMIN firstName", Role.librarian, null);
+            UserDto userDto = new UserDto("admin", "KANE", "Harry", Role.librarian, null);
             controller.AddUser(userDto, "admin");
+
+            BookBasic book = new BookBasic("FR1", "Chartreuse");
+            controller.AddBook(book);
+
+            BookBasic book1 = new BookBasic("FR2", "Code civil 2019 annoté. Édition limitée");
+            controller.AddBook(book1);
+
+            BookBasic book2 = new BookBasic("OI1", "Shakespeare, Le Songe d’une nuit d’été");
+            controller.AddBook(book2);
+
+            BookBasic book3 = new BookBasic("PO1", "L'Intelligence des plantes");
+            controller.AddBook(book3);
+
+            BookBasic book4 = new BookBasic("FU1", "Passage des Ombres");
+            controller.AddBook(book4);
+
+            BookBasic book5 = new BookBasic("TY8", "Les Lois naturelles de l'enfant");
+            controller.AddBook(book5);
+
+            BookWithDvd book6 = new BookWithDvd("TR8", "Le capitalisme expliqué à ma petite-fille",1);
+            controller.AddBook(book6);
+
+            BookWithDvd book7 = new BookWithDvd("PO1", "L'île des chasseurs d'oiseaux",2);
+            controller.AddBook(book7);
         }
 
         public void start()
         {
-            LibraryController controller = new LibraryController();
-
-            initialUser(controller);
-
-            
+           
             Console.WriteLine(
                 "\n==========================================================" +
                 "\n                        Connexion                         " +
@@ -57,7 +81,8 @@ namespace BibliothequeMultiPattern
                   "\n                   Connexion - success                    " +
                   "\n==========================================================");
             Console.WriteLine(">>> Bienvenue " + user.FirstName + " " + user.Name);
-            if(user.Role.Equals(Role.librarian))
+
+            if (user.Role.Equals(Role.librarian))
             {
                 this.librarianMode();
             }
@@ -91,7 +116,8 @@ namespace BibliothequeMultiPattern
             Console.WriteLine("2 - Ajouter un livre");
             Console.WriteLine("3 - Modifier le statut d'un livre");
             Console.WriteLine("4 - Inscrire un(e) étudiant(e)");
-            Console.WriteLine("5 - Deconnexion");
+            Console.WriteLine("5 - Consulter les derniers mouvements de livres");
+            Console.WriteLine("6 - Deconnexion");
             Console.WriteLine("\nVotre choix :");
 
             String choise = Console.ReadLine();
@@ -123,6 +149,10 @@ namespace BibliothequeMultiPattern
                     this.librarianMode();
                     break;
                 case 5:
+                    this.logLivre();
+                    this.librarianMode();
+                    break;
+                case 6:
                     this.logOut();
                     break;
                 default:
@@ -134,11 +164,15 @@ namespace BibliothequeMultiPattern
 
         public void studentMode()
         {
-            Console.WriteLine("------------Student Menu------------");
-            Console.WriteLine("1 - Recherche un livre");
+            Console.WriteLine(
+                "\n==========================================================" +
+                "\n                           Menu                           " +
+                "\n==========================================================");
+            Console.WriteLine("1 - Rechercher un livre");
             Console.WriteLine("2 - Emprunter un livre");
-            Console.WriteLine("3 - Rendre livre");
+            Console.WriteLine("3 - Rendre un livre");
             Console.WriteLine("4 - Deconnexion");
+            Console.WriteLine("\nVotre choix :");
             String choise = Console.ReadLine();
             int choix = 0;
             try
@@ -200,13 +234,37 @@ namespace BibliothequeMultiPattern
             
         }
 
+        public void logLivre()
+        {
+            Console.WriteLine(
+                 "\n==========================================================" +
+                 "\n       Liste des derniers mouvements de livres            " +
+                 "\n==========================================================");
+
+            List<Event> resultatRecherche = controller.GetEvents(user.Token);
+            if (null == resultatRecherche || resultatRecherche.Count == 0)
+            {
+                Console.WriteLine("\n>>> Aucune nouvelle action.");
+            }
+            else
+            {
+                foreach (var item in resultatRecherche)
+                {
+                    Console.WriteLine( item.Type + " depuis le " + item.Value);
+                }
+            }
+
+        }
+
         private void etatLivre()
         {
             Console.WriteLine(
                  "\n==========================================================" +
                  "\n              Modifier le statut d'un livre               " +
                  "\n==========================================================");
-            Console.Write("Entrez l'identifiant du livre dont vous souhaitez mofier le status: ");
+            Console.Write("\nRappel des différents statut : En Stock > En Rayon > Emprunté > Temporairement indisponible");
+
+            Console.Write("\nEntrez l'identifiant du livre dont vous souhaitez modifier le status: ");
             String recherche = Console.ReadLine();
             Book book = controller.GetByIdBook(recherche);
 
@@ -236,14 +294,10 @@ namespace BibliothequeMultiPattern
                 }
                 else
                 {
-                    Console.WriteLine("\n>>> Vous ne disposez pas de droit suffisant pour modifier le statut de ce livre.");
+                    Console.WriteLine("\n>>> Vous ne disposez pas de droit suffisant pour modifier le statut de ce livre.\n Seul les étudiant(e)s peuvent emprunter un livre.");
 
                 }
             }
-            
-
-
-           
         }
 
         public void ajouterLivre()
@@ -261,6 +315,10 @@ namespace BibliothequeMultiPattern
 
         private void inscrireEtudiant()
         {
+            Console.WriteLine(
+                "\n==========================================================" +
+                "\n                Ajouter un(e) étudiant(e)                 " +
+                "\n==========================================================");
             Console.Write("Entrez le nom de l'étudiant à inscrire: ");
             String name = Console.ReadLine();
             Console.Write("Entrez le prenom de l'étudiant à inscrire: ");
@@ -270,7 +328,15 @@ namespace BibliothequeMultiPattern
             Console.Write("Entrez le mot de passe de l'étudiant à inscrire: ");
             String mdp = Console.ReadLine();
             UserDto student = new UserDto(login, name, firstName, Role.student, null);
-            controller.AddUser(student, mdp);
+            bool result = controller.AddUser(student, mdp);
+            if (result)
+            {
+                Console.Write("\n>> Ajout réussi.");
+            } else
+            {
+                Console.Write("\n>> Une erreur est survenue.");
+
+            }
         }
 
         private void logOut()

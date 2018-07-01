@@ -41,7 +41,7 @@ namespace BibliothequeMultiPattern.services.users.service
 
         public bool Add(UserDto userDto, string motDePasse)
         {
-            if(null != userDto
+            if (null != userDto
                 && null != motDePasse
                 && !"".Equals(motDePasse)){
                 /* On crée les identifiants */
@@ -52,6 +52,7 @@ namespace BibliothequeMultiPattern.services.users.service
 
                 /* On crée l'utilisateur */
                 UserId userId = userIdGenerator.GenerateId();
+
                 return userData.Add(userDtoAdapter.DtoToModel(userDto, userId, authenticateId));
             }
             return false;
@@ -116,6 +117,7 @@ namespace BibliothequeMultiPattern.services.users.service
 
                 return userDtoAdapter.ModelToDto(user, authenticate, token);
             };
+
             return null;
         }
 

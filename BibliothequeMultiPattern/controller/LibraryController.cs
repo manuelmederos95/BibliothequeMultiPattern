@@ -11,6 +11,7 @@ using BibliothequeMultiPattern.services.sessionManager;
 using BibliothequeMultiPattern.services.users;
 using BibliothequeMultiPattern.services.users.service;
 using BibliothequeMultiPattern.services.users.service.dto;
+using System;
 using System.Collections.Generic;
 
 namespace BibliothequeMultiPattern

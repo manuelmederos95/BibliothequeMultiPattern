@@ -8,8 +8,8 @@ namespace BibliothequeMultiPattern.events.handlers
 {
     public class Event
     {
-        string Type { get;}
-        string Value { get;}
+        public string Type { get;}
+        public string Value { get;}
 
         public Event(string type, string value)
         {
