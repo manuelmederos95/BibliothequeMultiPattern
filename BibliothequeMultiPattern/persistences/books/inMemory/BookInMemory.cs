@@ -43,10 +43,10 @@ namespace BibliothequeMultiPattern.book.data
         {
             List<Book> books = new List<Book>();
       
-                Regex RegexToCheck = new Regex(value);
+                Regex RegexToCheck = new Regex(value.ToUpper());
                 foreach (var Book in Books)
                 {
-                    if (RegexToCheck.IsMatch(Book.Title))
+                    if (RegexToCheck.IsMatch(Book.Title.ToUpper()))
                     {
                         books.Add(Book);
                     }

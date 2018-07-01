@@ -20,6 +20,11 @@ namespace BibliothequeMultiPattern.state.impl
             return "Cet ouvrage est présent en rayon.";
         }
 
+        public string getName()
+        {
+            return "En rayon";
+        }
+
         public bool isAvailable()
         {
             return true;

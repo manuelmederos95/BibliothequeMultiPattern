@@ -13,5 +13,6 @@ namespace BibliothequeMultiPattern.state
       bool isAvailable();
       bool authorizedUser(Role role);
       IState nextStep();
+        string getName();
     }
 }

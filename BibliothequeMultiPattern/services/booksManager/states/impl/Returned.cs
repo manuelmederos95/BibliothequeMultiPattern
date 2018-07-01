@@ -20,6 +20,11 @@ namespace BibliothequeMultiPattern.state.impl
             return "Cet ouvrage vient d'être rendu.";        
         }
 
+        public string getName()
+        {
+            return "Temporairement indisponible";
+        }
+
         public bool isAvailable()
         {
             return false;

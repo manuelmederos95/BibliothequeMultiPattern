@@ -20,6 +20,11 @@ namespace BibliothequeMultiPattern.state.impl
             return "Cet ouvrage est archivé.";
         }
 
+        public string getName()
+        {
+            return "Archivé";
+        }
+
         public bool isAvailable()
         {
             return false;

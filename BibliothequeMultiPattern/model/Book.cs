@@ -27,8 +27,6 @@ namespace BibliothequeMultiPattern
 
         public void nextStep()
         {
-        Console.WriteLine("DANS nextStep");
-
         this.State = State.nextStep();
         eventDispatcher.NotifyAll(new Event("[Book : " + Title + "]", System.DateTime.Now.ToShortDateString() + " - " +State.getInfo()));
         }

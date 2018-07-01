@@ -20,6 +20,11 @@ namespace BibliothequeMultiPattern.state.impl
             return "Cet ouvrage a été emprunté.";
         }
 
+        public string getName()
+        {
+            return "Emprunté";
+        }
+
         public bool isAvailable()
         {
             return false;
