@@ -34,8 +34,8 @@ namespace BibliothequeMultiPattern.services
         public bool Delete(string token)
         {
             if (null == token
-                && token.Equals("")
-                && !connectedUser.ContainsKey(token)) { return false; }
+                || token.Equals("")
+                || !connectedUser.ContainsKey(token)) { return false; }
 
             connectedUser = new Dictionary<string, UserSession>();
             return true;

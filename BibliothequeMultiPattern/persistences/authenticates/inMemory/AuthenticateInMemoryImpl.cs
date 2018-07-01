@@ -33,6 +33,7 @@ namespace BibliothequeMultiPattern.services.authenticator.data
                 && null != password
                 && !"".Equals(password)
                 && IsIdAvailable(authenticate.authenticateId.id)
+                && IsLoginAvailable(authenticate.login)
                 )
             {
                 datas.Add(authenticate.login, adapter.ModelToDao(authenticate, password));
@@ -73,6 +74,20 @@ namespace BibliothequeMultiPattern.services.authenticator.data
             foreach (KeyValuePair<string, AuthenticateInMemoryDao> entry in datas)
             {
                 if (entry.Value.id.Equals(id))
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
+
+        public bool IsLoginAvailable(String login)
+        {
+            bool result = true;
+
+            foreach (KeyValuePair<string, AuthenticateInMemoryDao> entry in datas)
+            {
+                if (entry.Key.Equals(login))
                 {
                     result = false;
                 }

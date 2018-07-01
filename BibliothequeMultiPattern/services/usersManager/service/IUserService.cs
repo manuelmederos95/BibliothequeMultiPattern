@@ -20,7 +20,7 @@ namespace BibliothequeMultiPattern.services.users
 
         UserDto Connect(string login, string motDePasse);
 
-        bool DisConnect(string userId);
+        bool DisConnect(string token);
 
         List<Event> GetEvents(string token);
 

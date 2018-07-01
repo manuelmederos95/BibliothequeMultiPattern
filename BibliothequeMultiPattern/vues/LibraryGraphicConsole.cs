@@ -1,4 +1,5 @@
 ﻿using BibliothequeMultiPattern.book;
+using BibliothequeMultiPattern.services.users.service.dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace BibliothequeMultiPattern
         public void start()
         {
             LibraryController controller = new LibraryController();
-            IUser user;
+            UserDto user;
             Console.WriteLine("------------Connexion------------");
             do {
                 String login = this.consoleLogin();
@@ -29,7 +30,7 @@ namespace BibliothequeMultiPattern
 
             Console.WriteLine("------------Logged------------");
             Console.WriteLine("Bienvenue " + user.FirstName + " " + user.Name);
-            if(user.GetRole().Equals("Librarian"))
+            if(user.Role.Equals("Librarian"))
             {
                 this.librarianMode();
             }
@@ -181,9 +182,8 @@ namespace BibliothequeMultiPattern
             String login = Console.ReadLine();
             Console.Write("Entrez le mot de passe de l'étudiant à inscrire: ");
             String mdp = Console.ReadLine();
-            IUser student = new Student(name, firstName, login, mdp);
-            controller.Add(student);
+            UserDto student = new UserDto(login, name, firstName, "student", null);
+            controller.Add(student, mdp);
         }
-
     }
 }

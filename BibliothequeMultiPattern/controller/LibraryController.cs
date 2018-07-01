@@ -25,16 +25,14 @@ namespace BibliothequeMultiPattern
             this.bookService = bookService;
         }
 
-        public LibraryController GetDefaultLibrarianController()
+        public LibraryController()
         {
             IUserData userData = new UserInMemoryImpl(new UserInMemoryAdapter());
             IAuthenticatorData authenticateData = new AuthenticateInMemoryImpl(new AuthenticateInMemoryAdapter());
             IBookData bookData = new BookDataInMemory();
 
             userService = new UserServiceImpl(userData, authenticateData, new UserDtoAdapter(), new UniqueSessionManagerImpl(new EventDispatcher()));
-            bookService = new BookServiceImpl(bookData);
-
-            return new LibraryController(userService, bookService);
+            bookService = new BookServiceImpl(bookData); 
         }
 
         /** Gestion des Utilisateurs **/

@@ -14,6 +14,7 @@ namespace BibliothequeMultiPattern.events.handlers
         public EventDispatcher()
         {
             this.subscribers = new List<IEventListener>();
+            this.waitingEvents = new List<Event>();
         }
 
         public void Register(IEventListener librarianListener)
