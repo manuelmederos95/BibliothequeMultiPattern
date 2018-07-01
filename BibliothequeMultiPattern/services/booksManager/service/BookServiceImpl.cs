@@ -16,14 +16,21 @@ namespace BibliothequeMultiPattern.services.books.service
             this.bookData = bookData;
         }
 
-        public void Add(Book book)
+        public bool Add(Book book)
         {
-            bookData.Add(book);
+            if (null != book.Id
+                && !"".Equals(book.Id)
+                && null != book.Title
+                && !"".Equals(book.Title))
+            {
+                return bookData.Add(book);
+            }
+            return false;
         }
 
-        public bool Remove(Book book)
+        public bool Remove(string id)
         {
-            return bookData.Remove(book);
+            return bookData.Remove(id);
         }
 
         public List<Book> Search(string value)

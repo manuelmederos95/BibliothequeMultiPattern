@@ -11,11 +11,11 @@ namespace BibliothequeMultiPattern
     //abstract class for book
     public abstract class Book
     {
-        public int Id { get; }
-        public String Title { get; }
+        public string Id { get; }
+        public string Title { get; }
         public IState State { get;}
 
-        protected Book(int id, String titre)
+        protected Book(string id, string titre)
         {
             this.Id = id;
             this.Title = titre;

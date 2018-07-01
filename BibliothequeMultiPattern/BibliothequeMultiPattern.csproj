@@ -79,8 +79,8 @@
     <Compile Include="model\BookWithDvd.cs" />
     <Compile Include="model\Book.cs" />
     <Compile Include="controller\LibraryController.cs" />
-    <Compile Include="services\booksManager\service\IBookManager.cs" />
-    <Compile Include="services\booksManager\service\BookManagerImpl.cs" />
+    <Compile Include="services\booksManager\service\IBookService.cs" />
+    <Compile Include="services\booksManager\service\BookServiceImpl.cs" />
     <Compile Include="services\idsGenerator\AuthenticateIdGenerator.cs" />
     <Compile Include="services\idsGenerator\UserIdGenerator.cs" />
     <Compile Include="services\sessionManager\ISessionManager.cs" />

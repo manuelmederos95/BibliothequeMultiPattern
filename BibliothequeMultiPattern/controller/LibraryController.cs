@@ -57,14 +57,14 @@ namespace BibliothequeMultiPattern
         }
 
         /** Gestion des Livres **/
-        public void AddBook(Book book)
+        public bool AddBook(Book book)
         {
-            bookService.Add(book);
+            return bookService.Add(book);
         }
 
-        public bool RemoveBook(Book book)
+        public bool RemoveBook(string id)
         {
-            return bookService.Remove(book);
+            return bookService.Remove(id);
         }
 
         public List<Book> SearchBook(string value)

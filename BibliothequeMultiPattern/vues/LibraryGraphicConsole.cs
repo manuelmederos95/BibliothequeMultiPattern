@@ -168,7 +168,7 @@ namespace BibliothequeMultiPattern
             counter++;
             Console.Write("Entrez le titre du livre à rajouter: ");
             String titre = Console.ReadLine();
-            controller.AddBook(new BookBasic(counter, titre));
+            controller.AddBook(new BookBasic(counter.ToString(), titre));
 
         }
 

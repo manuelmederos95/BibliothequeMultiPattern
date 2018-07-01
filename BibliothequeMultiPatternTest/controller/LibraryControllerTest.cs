@@ -1,4 +1,5 @@
 ﻿using BibliothequeMultiPattern;
+using BibliothequeMultiPattern.book;
 using BibliothequeMultiPattern.services.users.service.dto;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -29,6 +30,12 @@ namespace BibliothequeMultiPatternTest.controller
 
             UserDto userDto3 = new UserDto("login3", "name3", "firstname3", "librarian", null);
             libraryController.Add(userDto3, "password3");
+
+            Book bookBasic = new BookBasic("AS0", "TitreAS0");
+            Assert.IsTrue(libraryController.AddBook(bookBasic));
+
+            Book bookBasic1 = new BookBasic("AS1", "TitreAS1");
+            Assert.IsTrue(libraryController.AddBook(bookBasic1));
         }
 
         /** Gestion des Utilisateurs **/
@@ -155,11 +162,79 @@ namespace BibliothequeMultiPatternTest.controller
         public void Should_add_book()
         {
             init();
-          
+            Book bookBasic = new BookBasic("0","Titre0");
+            Assert.IsTrue(libraryController.AddBook(bookBasic));
+
+            Book bookWithDvd = new BookWithDvd("1", "Titre1",3);
+            Assert.IsTrue(libraryController.AddBook(bookWithDvd));
         }
 
         [TestMethod]
         public void Should_not_add_book()
+        {
+            init();
+            //missing id
+            Book bookBasic0 = new BookBasic(null, "Titre0");
+            Assert.IsFalse(libraryController.AddBook(bookBasic0));
+            //empty id
+            Book bookBasic1 = new BookBasic("", "Titre1");
+            Assert.IsFalse(libraryController.AddBook(bookBasic1));
+            //missing titre
+            Book bookBasic2 = new BookBasic("2", null);
+            Assert.IsFalse(libraryController.AddBook(bookBasic2));
+            //empty titre
+            Book bookBasic3 = new BookBasic("3", "");
+            Assert.IsFalse(libraryController.AddBook(bookBasic3));
+        }
+
+        [TestMethod]
+        public void Should_remove_book()
+        {
+            init();
+            Assert.IsTrue(libraryController.RemoveBook("AS0"));
+        }
+
+        [TestMethod]
+        public void Should_not_remove_book()
+        {
+            init();
+            //missing id
+            Assert.IsFalse(libraryController.RemoveBook(null));
+
+            //empty id
+            Assert.IsFalse(libraryController.RemoveBook(""));
+        
+            //unknown id
+            Assert.IsFalse(libraryController.RemoveBook("unknown"));
+
+         }
+
+        [TestMethod]
+        public void Should_found_book()
+        {
+            init();
+            List<Book> results = libraryController.SearchBook("TitreAS0");
+            Assert.IsNotNull(results);
+            Assert.AreEqual(1, results.Count());
+        }
+
+        [TestMethod]
+        public void Should_not_found_book()
+        {
+            init();
+            List<Book> results = libraryController.SearchBook("UnknownTitle");
+            Assert.IsNotNull(results);
+            Assert.AreEqual(0, results.Count());
+        }
+
+        /** Notifications **/
+        public void Should_get_offline_events()
+        {
+            init();
+
+        }
+
+        public void Should_get_online_events()
         {
             init();
 

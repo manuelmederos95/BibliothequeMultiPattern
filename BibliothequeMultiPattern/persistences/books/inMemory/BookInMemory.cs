@@ -16,17 +16,27 @@ namespace BibliothequeMultiPattern.book.data
             Books = new List<Book>();
         }
   
-        public void Add(Book book)
+        public bool Add(Book book)
         {
             if (CheckIsComplete(book))
             {
-                Books.Add(book);
+                 Books.Add(book);
+                return true;
             }
+            return false;
         }
 
-        public bool Remove(Book book)
+        public bool Remove(string id)
         {
-            return Books.Remove(book);
+            foreach(var book in Books)
+            {
+                if (book.Id.Equals(id))
+                {
+                    Books.Remove(book);
+                    return true;
+                }
+            }
+            return false;
         }
 
         public List<Book> Search(string value)
@@ -48,7 +58,7 @@ namespace BibliothequeMultiPattern.book.data
 
         public void Update(Book book)
         {
-            Remove(book);
+            Remove(book.Id);
             Add(book);
         }
 
