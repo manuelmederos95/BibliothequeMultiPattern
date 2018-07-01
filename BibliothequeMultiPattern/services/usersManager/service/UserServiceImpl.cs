@@ -62,18 +62,18 @@ namespace BibliothequeMultiPattern.services.users.service
             if(null != login)
             {
                 Authenticate authenticate = authenticateData.GetByLogin(login);
+                if (null == authenticate) { return false; }
+
                 User user = userData.GetByAuthenticationId(authenticate.authenticateId.id);
+                if (null == user) { return false; }
 
-                if (null != authenticate && null != user)
-                {
-                    /* On supprime l'utilisateur */
-                    bool result = userData.Remove(user.id.id);
+                /* On supprime l'utilisateur */
+                bool result = userData.Remove(user.id.id);
 
-                    if (!result) { return result; }
+                if (!result) { return result; }
 
-                    /* On supprime ses identifiants */
-                    return authenticateData.Remove(login);                    
-                }
+                /* On supprime ses identifiants */
+                return authenticateData.Remove(login);                    
             }
             return false;
         }
@@ -108,6 +108,7 @@ namespace BibliothequeMultiPattern.services.users.service
                 && null != login
                 && !"".Equals(login)
                 && motDePasse.Equals(authenticateData.GetPassword(login))){
+
                 Authenticate authenticate = authenticateData.GetByLogin(login);
                 User user = userData.GetByAuthenticationId(authenticate.authenticateId.id);
 

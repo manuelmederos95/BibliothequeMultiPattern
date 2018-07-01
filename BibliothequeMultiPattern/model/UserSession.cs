@@ -10,7 +10,7 @@ namespace BibliothequeMultiPattern.model
     public class UserSession : IEventListener
     {
         public string userId;
-        public List<Event> librarianEvents  { get; }
+        public List<Event> librarianEvents  { get; set; }
 
         public UserSession(string userId)
         {

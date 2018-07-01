@@ -56,10 +56,10 @@ namespace BibliothequeMultiPattern.book.data
             return books;
         }
 
-        public void Update(Book book)
+        public bool Update(Book book)
         {
             Remove(book.Id);
-            Add(book);
+            return Add(book);
         }
 
         private bool CheckIsComplete(Book book)
@@ -77,5 +77,21 @@ namespace BibliothequeMultiPattern.book.data
         {
             Books.Clear();
         }
-     }
+
+        public Book GetById(string id)
+        {
+            if (null != id)
+            {
+                foreach (var Book in Books)
+                {
+                    if (Book.Id.Equals(id))
+                    {
+                        return Book;
+                    }
+                }
+            }
+           
+            return null;
+        }
+    }
 }

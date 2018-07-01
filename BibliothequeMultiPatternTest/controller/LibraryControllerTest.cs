@@ -1,5 +1,6 @@
 ﻿using BibliothequeMultiPattern;
 using BibliothequeMultiPattern.book;
+using BibliothequeMultiPattern.events.handlers;
 using BibliothequeMultiPattern.services.users.service.dto;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -43,8 +44,8 @@ namespace BibliothequeMultiPatternTest.controller
         public void Should_add_user()
         {
             init();
-            UserDto userDto = new UserDto("login","name","firstName","student",null);
-            Assert.IsTrue(libraryController.Add(userDto,"password"));
+            UserDto userDto = new UserDto("login", "name", "firstName", "student", null);
+            Assert.IsTrue(libraryController.Add(userDto, "password"));
         }
 
         [TestMethod]
@@ -162,10 +163,10 @@ namespace BibliothequeMultiPatternTest.controller
         public void Should_add_book()
         {
             init();
-            Book bookBasic = new BookBasic("0","Titre0");
+            Book bookBasic = new BookBasic("0", "Titre0");
             Assert.IsTrue(libraryController.AddBook(bookBasic));
 
-            Book bookWithDvd = new BookWithDvd("1", "Titre1",3);
+            Book bookWithDvd = new BookWithDvd("1", "Titre1", 3);
             Assert.IsTrue(libraryController.AddBook(bookWithDvd));
         }
 
@@ -203,11 +204,11 @@ namespace BibliothequeMultiPatternTest.controller
 
             //empty id
             Assert.IsFalse(libraryController.RemoveBook(""));
-        
+
             //unknown id
             Assert.IsFalse(libraryController.RemoveBook("unknown"));
 
-         }
+        }
 
         [TestMethod]
         public void Should_found_book()
@@ -226,17 +227,60 @@ namespace BibliothequeMultiPatternTest.controller
             Assert.IsNotNull(results);
             Assert.AreEqual(0, results.Count());
         }
+        /*
+        [TestMethod]
+        public void Should_update_book()
+        {
+            init();
+            Book bookBasic = new BookBasic("0", "Titre0");
+            Assert.IsTrue(libraryController.AddBook(bookBasic));
+
+            bookBasic.nextStep();
+
+            Assert.IsTrue(libraryController.UpdateBook(bookBasic));
+        }
+        */
 
         /** Notifications **/
+        [TestMethod]
         public void Should_get_offline_events()
         {
             init();
 
+            List<Book> books = libraryController.SearchBook("TitreAS0");
+            Book book = books.ElementAt(0);
+           
+            libraryController.NextStepForBook(book.Id,"librarian");//stocked
+            libraryController.NextStepForBook(book.Id, "student");//exposed
+            libraryController.NextStepForBook(book.Id, "librarian");//borrowed
+
+            UserDto userDto2 = libraryController.Connect("login1", "password1");
+
+            libraryController.NextStepForBook(book.Id, "librarian");//Returned
+
+            List<Event> events = libraryController.GetEvents(userDto2.Token);
+                       
+            Assert.AreEqual(4, events.Count);
+
+            libraryController.NextStepForBook(book.Id, "librarian");//Stocked
+
+            events = libraryController.GetEvents(userDto2.Token);
+
+            Assert.AreEqual(1, events.Count);
+
         }
 
+        [TestMethod]
         public void Should_get_online_events()
         {
             init();
+            UserDto userDto = libraryController.Connect("login0", "password0");
+            List<Book> books = libraryController.SearchBook("TitreAS0");
+            Book book = books.ElementAt(0);
+            libraryController.NextStepForBook(book.Id,"librarian");
+            List<Event> events = libraryController.GetEvents(userDto.Token);
+
+            Assert.AreEqual(1, events.Count);
 
         }
     }

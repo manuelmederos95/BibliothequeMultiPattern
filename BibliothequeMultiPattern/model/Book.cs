@@ -1,4 +1,5 @@
-﻿using BibliothequeMultiPattern.state;
+﻿using BibliothequeMultiPattern.events.handlers;
+using BibliothequeMultiPattern.state;
 using BibliothequeMultiPattern.state.impl;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,23 @@ namespace BibliothequeMultiPattern
     {
         public string Id { get; }
         public string Title { get; }
-        public IState State { get;}
+        public IState State { get; set; }
+        public EventDispatcher eventDispatcher { get; set; }
+        public string lastStepUserId { get; set; }
 
         protected Book(string id, string titre)
         {
             this.Id = id;
             this.Title = titre;
             State = new Stocked();
+        }
+
+        public void nextStep()
+        {
+        Console.WriteLine("DANS nextStep");
+
+        this.State = State.nextStep();
+        eventDispatcher.NotifyAll(new Event("[Book : " + Title + "]", System.DateTime.Now.ToShortDateString() + " - " +State.getInfo()));
         }
 
         public abstract float getRefoundPrice();

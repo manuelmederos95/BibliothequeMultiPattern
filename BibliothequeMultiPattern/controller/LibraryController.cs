@@ -30,9 +30,11 @@ namespace BibliothequeMultiPattern
             IUserData userData = new UserInMemoryImpl(new UserInMemoryAdapter());
             IAuthenticatorData authenticateData = new AuthenticateInMemoryImpl(new AuthenticateInMemoryAdapter());
             IBookData bookData = new BookDataInMemory();
+            EventDispatcher eventDispatcher = new EventDispatcher();
+            ISessionManager sessionManager = new UniqueSessionManagerImpl(eventDispatcher);
 
-            userService = new UserServiceImpl(userData, authenticateData, new UserDtoAdapter(), new UniqueSessionManagerImpl(new EventDispatcher()));
-            bookService = new BookServiceImpl(bookData); 
+            userService = new UserServiceImpl(userData, authenticateData, new UserDtoAdapter(), sessionManager);
+            bookService = new BookServiceImpl(bookData, eventDispatcher); 
         }
 
         /** Gestion des Utilisateurs **/
@@ -67,13 +69,27 @@ namespace BibliothequeMultiPattern
             return bookService.Remove(id);
         }
 
+        public Book GetByIdBook(string id)
+        {
+            return bookService.GetById(id);
+        }
+
         public List<Book> SearchBook(string value)
         {
             return bookService.Search(value);
         }
 
+        /*public bool UpdateBook(Book book)
+        {
+            return bookService.Update(book);
+        }*/
+
+        public bool NextStepForBook(string bookId, string role) {
+            return bookService.NextStep(bookId, role);
+         }
+
         /** Notifications **/
-       public List<Event> GetEvents(string token)
+        public List<Event> GetEvents(string token)
         {
             return userService.GetEvents(token);
         }

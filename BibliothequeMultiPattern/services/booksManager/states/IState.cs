@@ -10,6 +10,7 @@ namespace BibliothequeMultiPattern.state
     {
       string getInfo();
       bool isAvailable();
+      bool authorizedUser(string role);
       IState nextStep();
     }
 }

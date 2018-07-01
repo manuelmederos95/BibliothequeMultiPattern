@@ -10,7 +10,8 @@ namespace BibliothequeMultiPattern.book.data
     {
         bool Add(Book book);
         bool Remove(string id);
-        void Update(Book book);
+        bool Update(Book book);
         List<Book> Search(string value);
+        Book GetById(string id);
     }
 }
